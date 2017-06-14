@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#c8522675</color>
+    <color name="colorPrimaryDark">#381b4d</color>
+    <color name="colorAccent">#da0012</color>
+
+    <color name="listBackground">#eaeaea</color>
+
+    <color name="textPrimary">#1a1a1a</color>
+    <color name="textSecondary">#969696</color>
+
+    <color name="buttonActive">#9beff6ff</color>
+    <color name="buttonToggled">#c8badbff</color>
+
+    <color name="white">#ffffff</color>
+    <color name="lightWhite">#f5f7f7f7</color>
+</resources>

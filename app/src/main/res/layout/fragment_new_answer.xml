@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="16dp"
+        android:drawableBottom="@drawable/border">
+
+        <Button
+            android:id="@+id/answer_question_close_button"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="⨉"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"
+            android:background="@android:color/transparent"
+            android:gravity="left"/>
+
+        <TextView
+            android:layout_weight="24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Answer"/>
+
+        <Button
+            android:id="@+id/answer_question_submit_button"
+            android:layout_weight="8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:background="@android:color/holo_red_dark"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/textSecondary"/>
+
+    <TextView
+        android:id="@+id/answer_question_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:padding="16dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/listBackground"/>
+
+    <EditText
+        android:id="@+id/answer_question_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:padding="16dp"
+        android:minHeight="4000dp"
+        android:hint="Compose Answer"/>
+</LinearLayout>
