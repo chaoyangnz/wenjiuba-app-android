@@ -3,7 +3,7 @@
     <item android:id="@+id/action_questions"
         android:icon="@drawable/ic_question_answer_black_24dp"
         android:title="Questions" />
-    <item android:id="@+id/action_activities"
+    <item android:id="@+id/action_stream"
         android:icon="@drawable/ic_timeline_black_24dp"
         android:title="Activities" />
     <!--<item android:id="@+id/action_stream"-->

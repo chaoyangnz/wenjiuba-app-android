@@ -39,3 +39,11 @@ data class User(
     val avatar: String,
     val displayName: String
 )
+
+data class Stream(
+    val id: Int,
+    val happenedAt: Long,
+    val questionId: Int,
+    val questionTitle: String,
+    val type: String
+)

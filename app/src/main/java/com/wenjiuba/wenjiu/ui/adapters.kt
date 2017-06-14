@@ -1,9 +1,10 @@
 package com.wenjiuba.wenjiu.ui
 
 import android.app.Activity
-import android.app.ProgressDialog
-import android.content.Context
 import android.net.Uri
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.widget.RecyclerView
 import android.util.Base64
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.github.vipulasri.timelineview.TimelineView
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.wenjiuba.wenjiu.*
@@ -20,6 +22,7 @@ import com.wenjiuba.wenjiu.util.StringUtil
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.answer_item.view.*
 import kotlinx.android.synthetic.main.question_item.view.*
+import kotlinx.android.synthetic.main.stream_item.view.*
 import rx.subjects.PublishSubject
 import java.lang.reflect.Type
 import java.util.*
@@ -27,6 +30,7 @@ import java.util.*
 
 val questionListType = object : TypeToken<List<Question>>() {}.type
 val answerListType = object : TypeToken<List<Answer>>() {}.type
+val streamListType = object : TypeToken<List<Stream>>() {}.type
 
 val questionsRecyclerAdapter = ListRecyclerAdapter<Question>(R.layout.question_item, { question, view ->
     view.question_item_title.text = question.title
@@ -36,7 +40,7 @@ val questionsRecyclerAdapter = ListRecyclerAdapter<Question>(R.layout.question_i
     view.question_item_creator_avatar.load(question.creator.avatar)
 
     view.question_item_date_answers.text = """问于 ${DateUtil.formatDate(Date(question.createdAt))} · ${question.statAnswer}个回答"""
-}, "questions", null, questionListType, false)
+}, "questions", null, questionListType, false, false)
 
 
 val answersRecyclerAdapter = ListRecyclerAdapter<Answer>(R.layout.answer_item, { answer, view ->
@@ -77,7 +81,7 @@ val answersRecyclerAdapter = ListRecyclerAdapter<Answer>(R.layout.answer_item, {
         }
     }
 
-}, "", "answers", answerListType, true)
+}, "", "answers", answerListType, true, false)
 
 fun findAnswerVote(answer: Answer): AnswerVote? {
     for (answerVote in answer.answerVotes) {
@@ -89,8 +93,22 @@ fun findAnswerVote(answer: Answer): AnswerVote? {
     return null
 }
 
-class DefaultViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
+open class DefaultViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
 
+class TimeLineViewHolder(itemView: View, viewType: Int) : DefaultViewHolder(itemView) {
+    var mTimelineView: TimelineView
+
+    init {
+        mTimelineView = itemView.findViewById(R.id.stream_timeline) as TimelineView
+        mTimelineView.initLine(viewType)
+    }
+}
+
+val streamRecyclerAdapter = ListRecyclerAdapter<Stream>(R.layout.stream_item, { stream, view ->
+    view.stream_description.text = stream.questionTitle
+    view.stream_date.text = DateUtil.formatDate(Date(stream.happenedAt))
+
+}, "me/stream", null, streamListType, false, true)
 
 class ListRecyclerAdapter<T>(
         val itemLayoutResId: Int,
@@ -98,7 +116,8 @@ class ListRecyclerAdapter<T>(
         val refreshUri: String,
         val resultNode: String? = null,
         val type: Type,
-        val clearOnRefresh: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        val clearOnRefresh: Boolean,
+        val timeline: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items = listOf<T>()
 
@@ -127,9 +146,13 @@ class ListRecyclerAdapter<T>(
         }, { error -> })
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (timeline) TimelineView.getTimeLineViewType(position,getItemCount()) else super.getItemViewType(position)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DefaultViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(this.itemLayoutResId, parent, false)
-        return DefaultViewHolder(view)
+        return if (timeline) TimeLineViewHolder(view, viewType) else DefaultViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -168,3 +191,23 @@ fun ImageView.load(imageUri: String) {
         }
     }
 }
+
+
+class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+    val fragments = mutableListOf<Fragment>()
+
+    fun addFragment(fragment: Fragment) {
+        fragments.add(fragment)
+    }
+
+    override fun getItem(index: Int): Fragment {
+        return fragments.get(index)
+    }
+
+    override fun getCount(): Int {
+        return fragments.size
+    }
+
+}
+
+

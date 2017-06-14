@@ -1,10 +1,7 @@
 package com.wenjiuba.wenjiu.ui
 
-import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.wenjiuba.wenjiu.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : android.support.v7.app.AppCompatActivity() {
@@ -19,35 +16,21 @@ class MainActivity : android.support.v7.app.AppCompatActivity() {
 //                    .setAction("Action", null).show()
 //        }
 
-        //recycler view
-        questions_recycler.adapter = questionsRecyclerAdapter
-        questions_recycler.setLayoutManager(LinearLayoutManager(this));
+        val adapter = MainPagerAdapter(supportFragmentManager)
 
+        adapter.addFragment(QuestionsFragment())
+        adapter.addFragment(StreamFragment())
+        adapter.addFragment(ProfileFragment())
+        viewpager.setAdapter(adapter)
 
-        questionsRecyclerAdapter.itemClicked.subscribe { question ->
-
-            QuestionDetailFragment(question).show(getSupportFragmentManager(), "Question Detail")
-//            handleQuestionDetail(question)
-        }
-
-        // pull to refresh
-        swipeRefreshLayout.setProgressViewEndTarget(true, 120)
-        swipeRefreshLayout.setDistanceToTriggerSync(300)
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent)
-        swipeRefreshLayout.setOnRefreshListener {
-            refreshing_zone.visibility = View.VISIBLE
-
-            questionsRecyclerAdapter.refresh(null) {
-                swipeRefreshLayout.isRefreshing = false
-                refreshing_zone.visibility = View.GONE
+        navigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_questions -> viewpager.setCurrentItem(0, true)
+                R.id.action_stream -> viewpager.setCurrentItem(1, true)
+                R.id.action_you -> viewpager.setCurrentItem(2, true)
             }
+            return@setOnNavigationItemSelectedListener true
         }
-
-        // load data for the first time
-        swipeRefreshLayout.post(Runnable { swipeRefreshLayout.setRefreshing(true) })
-        questionsRecyclerAdapter.refresh(null, {
-            swipeRefreshLayout.setRefreshing(false)
-        })
     }
 
     override fun onCreateOptionsMenu(menu: android.view.Menu): Boolean {

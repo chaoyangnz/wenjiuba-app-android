@@ -37,7 +37,7 @@ class QuestionDetailFragment(val question: Question) : BottomSheetDialogFragment
 
         view.question_content.text = StringUtil.html2text(question.content)
         view.question_detail_answer_button.setOnClickListener {
-            NewAnswerFragment(question).show((context as FragmentActivity).getSupportFragmentManager(), "New Answer")
+            NewAnswerFragment(question).show(activity.getSupportFragmentManager(), "New Answer")
         }
         view.question_detail_close_button.setOnClickListener {
             dialog.dismiss()

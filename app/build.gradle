@@ -52,4 +52,6 @@ dependencies {
     compile 'us.feras.mdv:markdownview:1.1.0'
 
     compile 'org.jsoup:jsoup:1.10.3'
+
+    compile 'com.github.vipulasri:timelineview:1.0.5'
 }
