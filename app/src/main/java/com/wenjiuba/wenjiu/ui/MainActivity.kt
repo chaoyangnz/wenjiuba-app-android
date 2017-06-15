@@ -1,9 +1,7 @@
 package com.wenjiuba.wenjiu.ui
 
-import android.support.design.widget.Snackbar
 import com.wenjiuba.wenjiu.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_questions.*
 
 
 class MainActivity : android.support.v7.app.AppCompatActivity() {
@@ -24,6 +22,7 @@ class MainActivity : android.support.v7.app.AppCompatActivity() {
         adapter.addFragment(StreamFragment())
         adapter.addFragment(ProfileFragment())
         viewpager.setAdapter(adapter)
+        viewpager.setOffscreenPageLimit(2)
 
         navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

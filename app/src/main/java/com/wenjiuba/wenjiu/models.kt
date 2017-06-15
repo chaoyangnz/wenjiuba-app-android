@@ -1,10 +1,12 @@
 package com.wenjiuba.wenjiu
 
+import android.os.Parcelable
+
 /**
  * Created by Charvis on 12/06/2017.
  */
 
-data class Question(
+data class Question (
     val id: Int,
     val title: String,
     val content: String,

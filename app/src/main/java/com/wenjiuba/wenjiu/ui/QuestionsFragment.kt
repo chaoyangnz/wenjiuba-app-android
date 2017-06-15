@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
+import com.wenjiuba.wenjiu.Question
 import com.wenjiuba.wenjiu.R
 import kotlinx.android.synthetic.main.fragment_questions.view.*
 
@@ -25,8 +27,13 @@ class QuestionsFragment : Fragment() {
 
 
         questionsRecyclerAdapter.itemClicked.subscribe { question ->
+            if (activity == null) return@subscribe
 
-            QuestionDetailFragment(question).show(activity.getSupportFragmentManager(), "Question Detail")
+            val args = Bundle()
+            args.putString("question", Gson().toJson(question))
+            val dialog = QuestionDetailFragment()
+            dialog.arguments = args
+            dialog.show(activity.getSupportFragmentManager(), "Question Detail")
         }
 
         // pull to refresh
@@ -44,7 +51,7 @@ class QuestionsFragment : Fragment() {
         }
 
         // load data for the first time
-        swipeRefreshLayout.post(Runnable { swipeRefreshLayout.setRefreshing(true) })
+        swipeRefreshLayout.post { swipeRefreshLayout.setRefreshing(true) }
         view.refreshing_zone.visibility = View.VISIBLE
         questionsRecyclerAdapter.refresh(null, {
             swipeRefreshLayout.setRefreshing(false)
