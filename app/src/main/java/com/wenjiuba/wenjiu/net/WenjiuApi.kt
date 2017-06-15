@@ -69,7 +69,9 @@ fun post(endpoint: String, data: Any, success: (gson: Gson, json: String) -> Uni
 }
 
 fun get(endpoint: String, data: Map<String, String>, success: (gson: Gson, json: String) -> Unit, failure: (Exception) -> Unit) {
-    val urlencode = data.entries.map { (k,v) -> """${k}=${v}""" }.joinToString("&", endpoint)
-    request(Request.Method.GET, urlencode, "", success, failure)
+    val params_encode = data.entries.map { (k,v) -> """${k}=${v}""" }.joinToString("&")
+    var url = endpoint
+    if (params_encode.isNotEmpty()) url += "?" + params_encode
+    request(Request.Method.GET, url, "", success, failure)
 }
 

@@ -37,12 +37,15 @@ class QuestionDetailFragment(val question: Question) : BottomSheetDialogFragment
 
         view.question_content.text = StringUtil.html2text(question.content)
         view.question_detail_answer_button.setOnClickListener {
-            NewAnswerFragment(question).show(activity.getSupportFragmentManager(), "New Answer")
+            val dialog = NewAnswerFragment(question)
+            dialog.answerAdded.subscribe { answer ->
+                answersRecyclerAdapter.add(answer)
+            }
+            dialog.show(activity.getSupportFragmentManager(), "New Answer")
         }
         view.question_detail_close_button.setOnClickListener {
             dialog.dismiss()
         }
-
 
         val answersSwipeRefreshLayout = view.answersSwipeRefreshLayout
         answersSwipeRefreshLayout.setProgressViewEndTarget(true, 120)

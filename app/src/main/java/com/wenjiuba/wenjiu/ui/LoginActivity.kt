@@ -49,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
     fun gotoMain() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish() // prevent user to go back: killed off the stack
     }
 }
 

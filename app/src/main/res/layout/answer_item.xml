@@ -57,13 +57,12 @@
                 android:id="@+id/upvoteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
+                android:background="@drawable/button_upvote_ripple"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
                 android:padding="8dp"
-                android:textSize="13dp"
-                android:background="@color/buttonActive"
-                android:text="↑ Upvote"/>
+                android:text="↑ Upvote"
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/downvoteButton"

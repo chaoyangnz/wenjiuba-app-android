@@ -1,7 +1,9 @@
 package com.wenjiuba.wenjiu.ui
 
+import android.support.design.widget.Snackbar
 import com.wenjiuba.wenjiu.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_questions.*
 
 
 class MainActivity : android.support.v7.app.AppCompatActivity() {
@@ -46,8 +48,11 @@ class MainActivity : android.support.v7.app.AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.action_new_question) {
-            NewQuestionFragment().show(getSupportFragmentManager(), "New Question")
-//            handleNewQuestion()
+            val dialog = NewQuestionFragment()
+            dialog.questionAdded.subscribe { question ->
+                questionsRecyclerAdapter.add(question)
+            }
+            dialog.show(getSupportFragmentManager(), "New Question")
         }
 
         return super.onOptionsItemSelected(item)

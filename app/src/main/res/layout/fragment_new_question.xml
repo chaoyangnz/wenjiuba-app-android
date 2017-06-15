@@ -16,7 +16,7 @@
 
         <Button
             android:id="@+id/ask_question_close_button"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="⨉"
@@ -40,7 +40,7 @@
             android:text="Submit"
             android:textColor="@color/white"
             android:textAllCaps="false"
-            android:background="@android:color/holo_red_dark"/>
+            android:background="@drawable/red_button_ripple"/>
 
     </LinearLayout>
 

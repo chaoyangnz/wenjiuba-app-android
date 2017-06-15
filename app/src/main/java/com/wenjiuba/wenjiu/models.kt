@@ -21,7 +21,7 @@ data class Answer(
     val creator: User,
     val statUpvote: Int,
     val statDownvote: Int,
-    val answerVotes: List<AnswerVote>,
+    var answerVotes: List<AnswerVote>,
     val question: Question
 )
 
@@ -45,5 +45,6 @@ data class Stream(
     val happenedAt: Long,
     val questionId: Int,
     val questionTitle: String,
+    val title: String,
     val type: String
 )

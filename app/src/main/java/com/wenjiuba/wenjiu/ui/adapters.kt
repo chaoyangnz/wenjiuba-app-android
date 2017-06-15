@@ -32,53 +32,80 @@ val questionListType = object : TypeToken<List<Question>>() {}.type
 val answerListType = object : TypeToken<List<Answer>>() {}.type
 val streamListType = object : TypeToken<List<Stream>>() {}.type
 
-val questionsRecyclerAdapter = ListRecyclerAdapter<Question>(R.layout.question_item, { question, view ->
+val questionsRecyclerAdapter = ListRecyclerAdapter<Question>(R.layout.question_item, { question, view, _, _ ->
     view.question_item_title.text = question.title
     view.question_item_summary.text = StringUtil.trim(StringUtil.html2text(question.content), 80)
 
     view.question_item_creator_displayName.text = question.creator.displayName
     view.question_item_creator_avatar.load(question.creator.avatar)
 
-    view.question_item_date_answers.text = """问于 ${DateUtil.formatDate(Date(question.createdAt))} · ${question.statAnswer}个回答"""
+    view.question_item_date_answers.text = """Asked in ${DateUtil.formatDate(Date(question.createdAt))} · ${question.statAnswer} answers"""
 }, "questions", null, questionListType, false, false)
 
 
-val answersRecyclerAdapter = ListRecyclerAdapter<Answer>(R.layout.answer_item, { answer, view ->
+val answersRecyclerAdapter = ListRecyclerAdapter<Answer>(R.layout.answer_item, { answer, view, position, adaptor ->
 
     view.answer_content.text = StringUtil.html2text(answer.content)
 
     view.answer_creator_displayName.text = answer.creator.displayName
     view.answer_creator_avatar.load(answer.creator.avatar)
-    view.answer_date.text = """回答于 ${DateUtil.formatDate(Date(answer.createdAt))}"""
+    view.answer_date.text = """Answered in ${DateUtil.formatDate(Date(answer.createdAt))}"""
 
     val currentUser = App.instance!!.getPreferences().getUser()
-    if (answer.creator.id == currentUser.id) {
+    if (answer.creator.id == currentUser.id) { // my own answer, don't upvote/downvote
         view.upvoteButton.visibility = View.GONE
         view.downvoteButton.visibility = View.GONE
+        return@ListRecyclerAdapter
     }
     val answerVote = findAnswerVote(answer)
     when (answerVote?.vote ?: 0) {
         0 -> {
             view.upvoteButton.text = "↑ Upvote"
-            view.upvoteButton.setBackgroundResource(R.color.buttonActive)
-//            view.upvoteButton.visibility = View.VISIBLE
+            view.upvoteButton.setBackgroundResource(R.drawable.button_upvote_ripple)
             view.downvoteButton.text = "↓ Downvote"
-//            view.downvoteButton.visibility = View.VISIBLE
         }
         1 -> {
             view.upvoteButton.text = "↑ Upvoted"
-            view.upvoteButton.setBackgroundResource(R.color.buttonToggled)
-//            view.upvoteButton.visibility = View.VISIBLE
+            view.upvoteButton.setBackgroundResource(R.drawable.button_upvoted_ripple)
             view.downvoteButton.text = "↓ Downvote"
-//            view.downvoteButton.visibility = View.VISIBLE
         }
         -1 -> {
             view.upvoteButton.text = "↑ Upvote"
-            view.upvoteButton.setBackgroundResource(R.color.buttonActive)
-//            view.upvoteButton.visibility = View.VISIBLE
+            view.upvoteButton.setBackgroundResource(R.drawable.button_upvote_ripple)
             view.downvoteButton.text = "↓ Downvoted"
-//            view.downvoteButton.visibility = View.VISIBLE
         }
+    }
+    view.upvoteButton.setOnClickListener {
+        view.upvoteButton.isEnabled = false
+        var toVote = 1
+        if ((answerVote?.vote ?: 0) == 1) {
+            toVote = 0
+        }
+        get("""questions/${answer.question.id}/answers/${answer.id}/vote""", mapOf("to" to toVote.toString()), { gson, json ->
+            val newAnswer = gson.fromJson<Answer>(json, Answer::class.java)
+            answer.answerVotes = newAnswer.answerVotes
+
+            adaptor.notifyItemChanged(position)
+            view.upvoteButton.isEnabled = true
+        }, {
+            view.upvoteButton.isEnabled = true
+        })
+    }
+
+    view.downvoteButton.setOnClickListener {
+        view.downvoteButton.isEnabled = false
+        var toVote = -1
+        if ((answerVote?.vote ?: 0) == -1) {
+            toVote = 0
+        }
+        get("""questions/${answer.question.id}/answers/${answer.id}/vote""", mapOf("to" to toVote.toString()), { gson, json ->
+            val newAnswer = gson.fromJson<Answer>(json, Answer::class.java)
+            answer.answerVotes = newAnswer.answerVotes
+            adaptor.notifyItemChanged(position)
+            view.downvoteButton.isEnabled = true
+        }, {
+            view.downvoteButton.isEnabled = true
+        })
     }
 
 }, "", "answers", answerListType, true, false)
@@ -104,31 +131,36 @@ class TimeLineViewHolder(itemView: View, viewType: Int) : DefaultViewHolder(item
     }
 }
 
-val streamRecyclerAdapter = ListRecyclerAdapter<Stream>(R.layout.stream_item, { stream, view ->
-    view.stream_description.text = stream.questionTitle
+val streamRecyclerAdapter = ListRecyclerAdapter<Stream>(R.layout.stream_item, { stream, view, _, _ ->
+    view.stream_description.text = stream.title ?: stream.questionTitle
     view.stream_date.text = DateUtil.formatDate(Date(stream.happenedAt))
 
 }, "me/stream", null, streamListType, false, true)
 
 class ListRecyclerAdapter<T>(
         val itemLayoutResId: Int,
-        val binder: (T, View) -> Unit,
+        val binder: (T, View, Int, ListRecyclerAdapter<T>) -> Unit,
         val refreshUri: String,
         val resultNode: String? = null,
         val type: Type,
         val clearOnRefresh: Boolean,
         val timeline: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items = listOf<T>()
+    private var items = mutableListOf<T>()
 
     val itemClicked = PublishSubject.create<T>()
+
+    fun add(item: T) {
+        items.add(0, item)
+        notifyItemInserted(0)
+    }
 
     fun refresh(refreshUriOverride: String? = null, refreshCompleteCallback: (() -> Unit)? = null) {
         val uri = refreshUriOverride ?: refreshUri
 
         // clear list
         if (clearOnRefresh) {
-            this.items = listOf()
+            this.items = mutableListOf()
             this.notifyDataSetChanged()
         }
 
@@ -159,7 +191,7 @@ class ListRecyclerAdapter<T>(
         val item = this.items.get(position)
         var view = holder.itemView
 
-        binder.invoke(item, view)
+        binder.invoke(item, view, position, this)
 
         view.setOnClickListener({
             itemClicked.onNext(item)
