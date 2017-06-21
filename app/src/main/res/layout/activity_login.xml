@@ -3,36 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/login_bg">
 
     <!-- include app bar -->
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/username_input"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="User name"
-            android:text="richdyang"/>
+            android:layout_height="0dp"
+            android:layout_weight="2">
 
-        <EditText
-            android:id="@+id/password_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Password"
-            android:text="723neoidea"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:src="@drawable/logo"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/login_button"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"/>
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <EditText
+                android:id="@+id/username_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User name"
+                android:text="richdyang"
+                android:textColor="@color/white"/>
+
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:text="723neoidea"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Login"/>
+        </LinearLayout>
+
     </LinearLayout>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -15,6 +15,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+//        App.instance!!.getPreferences().edit().clear().commit()
         if (App.instance!!.getPreferences().getToken().isNotEmpty()) {
             gotoMain()
             return

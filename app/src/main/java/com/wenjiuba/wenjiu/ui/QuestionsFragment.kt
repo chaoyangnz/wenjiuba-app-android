@@ -31,6 +31,7 @@ class QuestionsFragment : Fragment() {
 
             val args = Bundle()
             args.putString("question", Gson().toJson(question))
+
             val dialog = QuestionDetailFragment()
             dialog.arguments = args
             dialog.show(activity.getSupportFragmentManager(), "Question Detail")

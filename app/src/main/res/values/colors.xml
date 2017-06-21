@@ -9,8 +9,8 @@
     <color name="textPrimary">#1a1a1a</color>
     <color name="textSecondary">#969696</color>
 
-    <color name="buttonActive">#9beff6ff</color>
-    <color name="buttonToggled">#c8badbff</color>
+    <color name="buttonActive">#eef6ff</color>
+    <color name="buttonToggled">#c8bae0ff</color>
 
     <color name="white">#ffffff</color>
     <color name="lightWhite">#f5f7f7f7</color>

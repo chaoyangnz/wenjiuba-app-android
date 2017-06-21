@@ -54,4 +54,6 @@ dependencies {
     compile 'org.jsoup:jsoup:1.10.3'
 
     compile 'com.github.vipulasri:timelineview:1.0.5'
+
+    compile 'com.zzhoujay.richtext:richtext:2.5.2'
 }

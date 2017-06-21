@@ -19,8 +19,10 @@ import com.wenjiuba.wenjiu.*
 import com.wenjiuba.wenjiu.net.get
 import com.wenjiuba.wenjiu.util.DateUtil
 import com.wenjiuba.wenjiu.util.StringUtil
+import com.zzhoujay.richtext.RichText
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.answer_item.view.*
+import kotlinx.android.synthetic.main.fragment_question_detail.view.*
 import kotlinx.android.synthetic.main.question_item.view.*
 import kotlinx.android.synthetic.main.stream_item.view.*
 import rx.subjects.PublishSubject
@@ -45,7 +47,7 @@ val questionsRecyclerAdapter = ListRecyclerAdapter<Question>(R.layout.question_i
 
 val answersRecyclerAdapter = ListRecyclerAdapter<Answer>(R.layout.answer_item, { answer, view, position, adaptor ->
 
-    view.answer_content.text = StringUtil.html2text(answer.content)
+    RichText.fromHtml(answer.content).into(view.answer_content)
 
     view.answer_creator_displayName.text = answer.creator.displayName
     view.answer_creator_avatar.load(answer.creator.avatar)

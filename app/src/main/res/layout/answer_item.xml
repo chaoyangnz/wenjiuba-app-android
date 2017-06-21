@@ -60,7 +60,7 @@
                 android:background="@drawable/button_upvote_ripple"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
-                android:padding="8dp"
+                android:padding="4dp"
                 android:text="↑ Upvote"
                 android:textAllCaps="false" />
 
@@ -71,7 +71,7 @@
                 android:textAllCaps="false"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
-                android:padding="8dp"
+                android:padding="4dp"
                 android:background="@android:color/transparent"
                 android:textSize="13dp"
                 android:text="↓ Downvote"/>
