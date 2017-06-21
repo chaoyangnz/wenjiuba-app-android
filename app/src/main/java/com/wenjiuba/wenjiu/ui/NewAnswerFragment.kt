@@ -15,8 +15,7 @@ import com.wenjiuba.wenjiu.net.post
 import kotlinx.android.synthetic.main.fragment_new_answer.view.*
 import rx.subjects.PublishSubject
 
-class NewAnswerFragment : BottomSheetDialogFragment() {
-    private var behaviour: BottomSheetBehavior<View>? = null
+class NewAnswerFragment : FullScreenDialogFragment() {
     val answerAdded = PublishSubject.create<Answer>()
 
     var question: Question? = null
@@ -28,10 +27,9 @@ class NewAnswerFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        val dialog = super.onCreateDialog(savedInstanceState)
         val view = View.inflate(context, R.layout.fragment_new_answer, null)
         dialog.setContentView(view)
-        behaviour = BottomSheetBehavior.from(view.getParent() as View)
 
         view.answer_question_title.text = question!!.title
         view.answer_question_close_button.setOnClickListener {
@@ -62,11 +60,5 @@ class NewAnswerFragment : BottomSheetDialogFragment() {
         }
 
         return dialog
-    }
-
-    override fun onStart() {
-        super.onStart()
-        //默认全屏展开
-        behaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
     }
 }

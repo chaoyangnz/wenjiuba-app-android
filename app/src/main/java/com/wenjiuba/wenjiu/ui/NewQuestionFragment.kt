@@ -15,16 +15,13 @@ import kotlinx.android.synthetic.main.fragment_new_question.view.*
 import kotlinx.android.synthetic.main.fragment_questions.*
 import rx.subjects.PublishSubject
 
-class NewQuestionFragment : BottomSheetDialogFragment() {
-    private var behaviour: BottomSheetBehavior<View>? = null
-
+class NewQuestionFragment : FullScreenDialogFragment() {
     val questionAdded = PublishSubject.create<Question>()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        val dialog = super.onCreateDialog(savedInstanceState)
         val view = View.inflate(context, R.layout.fragment_new_question, null)
         dialog.setContentView(view)
-        behaviour = BottomSheetBehavior.from(view.getParent() as View)
 
         view.ask_question_close_button.setOnClickListener {
             dialog.dismiss()
@@ -55,11 +52,5 @@ class NewQuestionFragment : BottomSheetDialogFragment() {
         }
 
         return dialog
-    }
-
-    override fun onStart() {
-        super.onStart()
-        //默认全屏展开
-        behaviour!!.state = BottomSheetBehavior.STATE_EXPANDED
     }
 }

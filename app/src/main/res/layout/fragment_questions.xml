@@ -7,8 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.wenjiuba.wenjiu.ui.MainActivity"
     tools:showIn="@layout/activity_main"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"

@@ -24,7 +24,7 @@ class MainActivity : android.support.v7.app.AppCompatActivity() {
 
         adapter.addFragment(QuestionsFragment())
         adapter.addFragment(StreamFragment())
-        adapter.addFragment(ProfileFragment())
+        adapter.addFragment(AboutFragment())
         viewpager.setAdapter(adapter)
         viewpager.setOffscreenPageLimit(2)
 

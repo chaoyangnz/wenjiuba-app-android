@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -65,7 +64,7 @@
             android:textStyle="bold"
             android:textSize="17dp"
             android:paddingTop="8dp"
-            android:paddingBottom="@dimen/normal_margin_size"
+            android:paddingBottom="6dp"
             android:textColor="@color/textPrimary"
             android:gravity="center_vertical"/>
 
@@ -73,7 +72,7 @@
             android:id="@+id/question_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lineSpacingMultiplier="1.3"/>
+            android:lineSpacingMultiplier="1.5"/>
 
         <ImageButton
             android:id="@+id/toggle_question_collapse"
@@ -82,7 +81,7 @@
             android:gravity="center"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:padding="4dp"
+            android:padding="2dp"
             android:background="@android:color/transparent"
             android:textSize="12dp"
             android:src="@drawable/ic_expand_less_black_24dp"/>
