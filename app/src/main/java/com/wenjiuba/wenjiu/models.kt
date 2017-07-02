@@ -50,3 +50,23 @@ data class Stream(
     val title: String,
     val type: String
 )
+
+data class Case (
+    val id: Int,
+//        val title: String,
+    val content: String,
+    val createdAt: Long,
+    val statComment: Int,
+    val creator: User
+)
+
+data class Comment (
+        val id: Int,
+        val content: String,
+        val createdAt: Long,
+        val refId: Int,
+        val refType: String,
+        val creator: User,
+        val sequence: String,
+        val children: List<Comment>
+)

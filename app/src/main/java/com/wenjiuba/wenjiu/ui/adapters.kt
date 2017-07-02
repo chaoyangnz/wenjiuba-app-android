@@ -22,6 +22,8 @@ import com.wenjiuba.wenjiu.util.StringUtil
 import com.zzhoujay.richtext.RichText
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.answer_item.view.*
+import kotlinx.android.synthetic.main.case_item.view.*
+import kotlinx.android.synthetic.main.comment_item.view.*
 import kotlinx.android.synthetic.main.fragment_question_detail.view.*
 import kotlinx.android.synthetic.main.question_item.view.*
 import kotlinx.android.synthetic.main.stream_item.view.*
@@ -43,7 +45,6 @@ val questionsRecyclerAdapter = ListRecyclerAdapter<Question>(R.layout.question_i
 
     view.question_item_date_answers.text = """Asked in ${DateUtil.formatDate(Date(question.createdAt))} · ${question.statAnswer} answers"""
 }, "questions", null, questionListType, false, false)
-
 
 val answersRecyclerAdapter = ListRecyclerAdapter<Answer>(R.layout.answer_item, { answer, view, position, adaptor ->
 
@@ -121,6 +122,8 @@ fun findAnswerVote(answer: Answer): AnswerVote? {
     }
     return null
 }
+
+
 
 open class DefaultViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
 

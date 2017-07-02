@@ -12,7 +12,7 @@
         android:drawableBottom="@drawable/border">
 
         <Button
-            android:id="@+id/answer_question_close_button"
+            android:id="@+id/new_comment_close_button"
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -27,10 +27,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
-            android:text="回答"/>
+            android:text="评论"/>
 
         <Button
-            android:id="@+id/answer_question_submit_button"
+            android:id="@+id/new_comment_submit_button"
             android:layout_weight="8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:background="@color/textSecondary"/>
 
     <TextView
-        android:id="@+id/answer_question_title"
+        android:id="@+id/new_comment_case_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="1"
@@ -59,11 +59,11 @@
         android:background="@color/listBackground"/>
 
     <EditText
-        android:id="@+id/answer_question_content"
+        android:id="@+id/new_comment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="top"
         android:padding="16dp"
         android:minHeight="4000dp"
-        android:hint="填写答案"/>
+        android:hint="填写评论"/>
 </LinearLayout>

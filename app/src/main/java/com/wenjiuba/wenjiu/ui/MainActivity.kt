@@ -23,16 +23,16 @@ class MainActivity : android.support.v7.app.AppCompatActivity() {
         val adapter = MainPagerAdapter(supportFragmentManager)
 
         adapter.addFragment(QuestionsFragment())
+        adapter.addFragment(CasesFragment())
         adapter.addFragment(StreamFragment())
-        adapter.addFragment(AboutFragment())
         viewpager.setAdapter(adapter)
         viewpager.setOffscreenPageLimit(2)
 
         navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_questions -> viewpager.setCurrentItem(0, true)
-                R.id.action_stream -> viewpager.setCurrentItem(1, true)
-                R.id.action_you -> viewpager.setCurrentItem(2, true)
+                R.id.action_cases -> viewpager.setCurrentItem(1, true)
+                R.id.action_enoter -> viewpager.setCurrentItem(2, true)
             }
             return@setOnNavigationItemSelectedListener true
         }
@@ -59,28 +59,7 @@ class MainActivity : android.support.v7.app.AppCompatActivity() {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: android.view.Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(com.wenjiuba.wenjiu.R.menu.menu_main, menu)
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-
-        if (id == R.id.action_new_question) {
-            val dialog = NewQuestionFragment()
-            dialog.questionAdded.subscribe { question ->
-                questionsRecyclerAdapter.add(question)
-            }
-            dialog.show(getSupportFragmentManager(), "New Question")
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
 
 
 }

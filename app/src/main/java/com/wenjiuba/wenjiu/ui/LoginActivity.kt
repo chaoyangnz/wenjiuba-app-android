@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
             // validation
             if (userName.isEmpty() || password.isEmpty()) {
-                Snackbar.make(view, "Username or password is empty", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "用户名或密码不允许为空", Snackbar.LENGTH_LONG)
             }
 
             // API request
@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
                 gotoMain()
             }, { error ->
-                Snackbar.make(view, "Username or password is incorrect", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "用户名或密码不正确", Snackbar.LENGTH_LONG)
             })
         }
     }
