@@ -1,27 +1,17 @@
 package com.wenjiuba.wenjiu.net
 
-import com.android.volley.toolbox.JsonObjectRequest
-import com.wenjiuba.wenjiu.App
-import org.json.JSONObject
-import java.util.function.Consumer
-import com.google.gson.JsonSyntaxException
-import com.android.volley.toolbox.HttpHeaderParser
-import com.android.volley.Response.success
-import android.R.attr.data
-import com.android.volley.*
+import android.util.Log
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.wenjiuba.wenjiu.App
 import com.wenjiuba.wenjiu.Question
-import com.wenjiuba.wenjiu.User
-import java.io.UnsupportedEncodingException
-import android.util.Base64.NO_WRAP
-import com.android.volley.AuthFailureError
-import com.android.volley.toolbox.StringRequest
 import com.wenjiuba.wenjiu.getToken
 
 
-const val API_BASE = "https://api.wenjiuba.com/"
-
+//const val API_BASE = "https://api.wenjiuba.com/"
+const val API_BASE = "http://130.217.185.73:8080/"
 
 val StringType = object : TypeToken<String>() {}.type
 val VoidType = object : TypeToken<Void>() {}.type
@@ -34,7 +24,9 @@ private fun api(endpoint: String): String {
 fun request(method: Int, endpoint: String, data: Any, success: (gson: Gson, json: String)->Unit, failure: (Exception)->Unit) {
     val gson = Gson()
     val request = object : StringRequest(method, api(endpoint), { response ->
-        success(gson, response.toString())
+        var json = response.toString()
+        success(gson, json)
+        Log.v("api.wenjiuba.com", json)
     }, { error ->
         error.printStackTrace()
         failure.invoke(error)
@@ -68,7 +60,7 @@ fun post(endpoint: String, data: Any, success: (gson: Gson, json: String) -> Uni
     request(Request.Method.POST, endpoint, data, success, failure)
 }
 
-fun get(endpoint: String, data: Map<String, String>, success: (gson: Gson, json: String) -> Unit, failure: (Exception) -> Unit) {
+fun get(endpoint: String, data: Map<String, String?>, success: (gson: Gson, json: String) -> Unit, failure: (Exception) -> Unit) {
     val params_encode = data.entries.map { (k,v) -> """${k}=${v}""" }.joinToString("&")
     var url = endpoint
     if (params_encode.isNotEmpty()) url += "?" + params_encode

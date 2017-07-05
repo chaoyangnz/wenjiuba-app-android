@@ -13,5 +13,5 @@
         <!--android:title="Streams" />-->
     <item android:id="@+id/action_enoter"
         android:icon="@drawable/ic_account_circle_black_24dp"
-        android:title="我的问灸" />
+        android:title="灸灸判读" />
 </menu>

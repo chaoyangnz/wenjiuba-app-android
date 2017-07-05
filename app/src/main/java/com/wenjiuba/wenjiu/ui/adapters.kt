@@ -21,12 +21,9 @@ import com.wenjiuba.wenjiu.util.DateUtil
 import com.wenjiuba.wenjiu.util.StringUtil
 import com.zzhoujay.richtext.RichText
 import jp.wasabeef.glide.transformations.CropCircleTransformation
-import kotlinx.android.synthetic.main.answer_item.view.*
-import kotlinx.android.synthetic.main.case_item.view.*
-import kotlinx.android.synthetic.main.comment_item.view.*
-import kotlinx.android.synthetic.main.fragment_question_detail.view.*
-import kotlinx.android.synthetic.main.question_item.view.*
-import kotlinx.android.synthetic.main.stream_item.view.*
+import kotlinx.android.synthetic.main.item_answer.view.*
+import kotlinx.android.synthetic.main.item_question.view.*
+import kotlinx.android.synthetic.main.item_stream.view.*
 import rx.subjects.PublishSubject
 import java.lang.reflect.Type
 import java.util.*
@@ -36,7 +33,7 @@ val questionListType = object : TypeToken<List<Question>>() {}.type
 val answerListType = object : TypeToken<List<Answer>>() {}.type
 val streamListType = object : TypeToken<List<Stream>>() {}.type
 
-val questionsRecyclerAdapter = ListRecyclerAdapter<Question>(R.layout.question_item, { question, view, _, _ ->
+val questionsRecyclerAdapter = ListRecyclerAdapter<Question>(R.layout.item_question, { question, view, _, _ ->
     view.question_item_title.text = question.title
     view.question_item_summary.text = StringUtil.trim(StringUtil.html2text(question.content), 80)
 
@@ -46,7 +43,7 @@ val questionsRecyclerAdapter = ListRecyclerAdapter<Question>(R.layout.question_i
     view.question_item_date_answers.text = """Asked in ${DateUtil.formatDate(Date(question.createdAt))} · ${question.statAnswer} answers"""
 }, "questions", null, questionListType, false, false)
 
-val answersRecyclerAdapter = ListRecyclerAdapter<Answer>(R.layout.answer_item, { answer, view, position, adaptor ->
+val answersRecyclerAdapter = ListRecyclerAdapter<Answer>(R.layout.item_answer, { answer, view, position, adaptor ->
 
     RichText.fromHtml(answer.content).into(view.answer_content)
 
@@ -136,7 +133,7 @@ class TimeLineViewHolder(itemView: View, viewType: Int) : DefaultViewHolder(item
     }
 }
 
-val streamRecyclerAdapter = ListRecyclerAdapter<Stream>(R.layout.stream_item, { stream, view, _, _ ->
+val streamRecyclerAdapter = ListRecyclerAdapter<Stream>(R.layout.item_stream, { stream, view, _, _ ->
     view.stream_description.text = stream.title ?: stream.questionTitle
     view.stream_date.text = DateUtil.formatDate(Date(stream.happenedAt))
 

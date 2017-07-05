@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="16dp"
+        android:drawableBottom="@drawable/border">
+
+        <Button
+            android:id="@+id/new_enoter_report_close_button"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="⨉"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"
+            android:background="@android:color/transparent"
+            android:gravity="left"/>
+
+        <TextView
+            android:layout_weight="24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="判读数据"/>
+
+        <Button
+            android:id="@+id/new_enoter_report_submit_button"
+            android:layout_weight="8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:background="@drawable/red_button_ripple"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/textSecondary"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/new_enoter_report_fullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:hint="姓名"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true"/>
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/new_enoter_report_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textSize="14dp"
+                    android:hint="年龄"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true"/>
+
+                <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                    android:id="@+id/new_enoter_report_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:activeBgColor="@android:color/holo_green_dark"
+                    app:textToggleLeft="男"
+                    app:textToggleRight="女" />
+
+
+                <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                    android:id="@+id/new_enoter_report_menses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:activeBgColor="@android:color/holo_green_dark"
+                    app:textToggleLeft="未行经"
+                    app:textToggleCenter="正常行经"
+                    app:textToggleRight="已闭经"
+                    app:toggleWidth="80dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:visibility="gone"/>
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/new_enoter_report_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="14dp"
+                    android:hint="身高(厘米)"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true"/>
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/new_enoter_report_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="14dp"
+                    android:hint="体重(公斤)"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true"/>
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/new_enoter_report_bpHigh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="14dp"
+                    android:hint="血压-高(厘米汞柱)"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true"/>
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/new_enoter_report_bpLow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="14dp"
+                    android:hint="血压-低(厘米汞柱)"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/listBackground"
+                android:gravity="center"
+                android:text="‧ ‧ ‧ 经络能量‧ ‧ ‧ "/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_llu"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="肺经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rlu"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="肺经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lpc"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="心包经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rpc"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="心包经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lht"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="心经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rht"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="心经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lsi"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="小肠经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rsi"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="小肠经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lte"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="三焦经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rte"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="三焦经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lli"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="大肠经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rli"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="大肠经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lsp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="脾经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rsp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="脾经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_llr"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="肝经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rlr"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="肝经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lki"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="肾经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rki"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="肾经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lbl"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="膀胱经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rbl"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="膀胱经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lgb"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="胆经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rgb"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="胆经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_lst"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="胃经(左)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/new_enoter_report_rst"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="14dp"
+                        android:hint="胃经(右)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/listBackground"
+                android:gravity="center"
+                android:text="‧ ‧ ‧ 判读选项‧ ‧ ‧ "/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginBottom="30dp">
+
+
+                <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                    android:id="@+id/new_enoter_report_requestPackageInd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:activeBgColor="@android:color/holo_green_dark"
+                    app:toggleWidth="100dp"
+                    app:textToggleLeft="机器人判读"
+                    app:textToggleRight="专家判读"
+                    android:layout_marginBottom="25dp"/>
+
+
+                <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                    android:id="@+id/new_enoter_report_expert1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:hint="判读专家"
+                    app:met_floatingLabel="normal"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/new_enoter_report_price_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end|center_vertical"
+                android:text="总计：¥ 19.9元"
+                android:textStyle="bold"
+                android:padding="16dp"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

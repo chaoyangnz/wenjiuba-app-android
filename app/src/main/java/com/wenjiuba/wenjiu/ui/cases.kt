@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.text.method.ScrollingMovementMethod
 import android.view.*
 import android.widget.Toast
 import com.google.gson.Gson
@@ -15,20 +16,14 @@ import com.wenjiuba.wenjiu.net.post
 import com.wenjiuba.wenjiu.util.DateUtil
 import com.wenjiuba.wenjiu.util.StringUtil
 import com.zzhoujay.richtext.RichText
-import kotlinx.android.synthetic.main.case_item.view.*
-import kotlinx.android.synthetic.main.comment_item.view.*
 import kotlinx.android.synthetic.main.fragment_case_detail.view.*
 import kotlinx.android.synthetic.main.fragment_cases.view.*
 import kotlinx.android.synthetic.main.fragment_new_case.view.*
 import kotlinx.android.synthetic.main.fragment_new_comment.view.*
-import kotlinx.android.synthetic.main.fragment_question_detail.view.*
+import kotlinx.android.synthetic.main.item_case.view.*
+import kotlinx.android.synthetic.main.item_comment.view.*
 import rx.subjects.PublishSubject
 import java.util.*
-import android.text.method.ScrollingMovementMethod
-import android.opengl.ETC1.getHeight
-
-
-
 
 
 class CasesFragment : Fragment() {
@@ -39,7 +34,7 @@ class CasesFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        casesRecyclerAdapter = ListRecyclerAdapter<Case>(R.layout.case_item, { case, view, _, _ ->
+        casesRecyclerAdapter = ListRecyclerAdapter<Case>(R.layout.item_case, { case, view, _, _ ->
             //    view.case_item_title.text = case.title
             view.case_item_summary.text = StringUtil.trim(StringUtil.html2text(case.content), 80)
 
@@ -167,7 +162,7 @@ class CaseDetailFragment : FullScreenDialogFragment() {
 
         case = Gson().fromJson(arguments.getString("case"), Case::class.java)
 
-        commentsRecyclerAdapter  = ListRecyclerAdapter<Comment>(R.layout.comment_item, { comment, view, _, _ ->
+        commentsRecyclerAdapter  = ListRecyclerAdapter<Comment>(R.layout.item_comment, { comment, view, _, _ ->
 
             RichText.fromHtml(comment.content).into(view.comment_content)
 

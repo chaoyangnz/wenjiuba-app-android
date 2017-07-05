@@ -36,8 +36,7 @@
                 android:id="@+id/username_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="User name"
-                android:text="richdyang"
+                android:hint="用户名"
                 android:textColor="@color/white"/>
 
             <EditText
@@ -45,15 +44,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Password"
-                android:text="723neoidea"
+                android:hint="密码"
                 android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"/>
+                android:text="登录"/>
         </LinearLayout>
 
     </LinearLayout>
