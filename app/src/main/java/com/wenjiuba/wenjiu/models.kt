@@ -1,6 +1,7 @@
 package com.wenjiuba.wenjiu
 
 import android.os.Parcelable
+import com.wenjiuba.wenjiu.ui.*
 import java.math.BigDecimal
 import java.sql.Timestamp
 import java.util.*
@@ -79,11 +80,11 @@ class EnoterReport {
 
     var fullName: String? = null
 
-    var gender: String? = null
+    var gender: Gender? = null
 
     var age: Int? = null
 
-    var menses: String? = null
+    var menses: Menses? = null
 
     var height: BigDecimal? = null
 
@@ -163,24 +164,31 @@ class EnoterReport {
 
     var expert2Report: String? = null
 
-    var robotReviewInd: String? = null
+    var robotReviewInd: ReviewInd? = null
 
-    var expert1ReviewInd: String? = null
+    var expert1ReviewInd: ReviewInd? = null
 
     var expert2ReviewInd: String? = null
 
 
     // 套餐选项，机器人／专家
-    var requestPackageInd: String? = null
+    var requestPackageInd: RequestPackageInd? = null
 
     // 专家选项：自己指定／平台分配
-    var requestExpertInd: String? = null
+    var requestExpertInd: RequestExpertInd? = null
 
-    var paymentInd: String? = null
+    var paymentInd: PaymentInd? = null
 
     var createdAt: Long? = null
 
     var createdBy: Long? = null
+}
+
+class EnoterPackage {
+    var namedRobotPrice: BigDecimal? = null
+    var robotPrice: BigDecimal? = null
+    var namedExpertPrice: BigDecimal? = null
+    var expertPrice: BigDecimal? = null
 }
 
 class Expert {

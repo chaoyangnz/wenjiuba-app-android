@@ -1,8 +1,10 @@
 package com.wenjiuba.wenjiu.ui
 
+import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import android.widget.Toast
@@ -17,6 +19,9 @@ import java.util.*
 import android.widget.ArrayAdapter
 import com.wenjiuba.wenjiu.*
 import com.wenjiuba.wenjiu.net.get
+import com.wenjiuba.wenjiu.util.DateUtil
+import com.zzhoujay.richtext.RichText
+import kotlinx.android.synthetic.main.fragment_enoter_report_detail.view.*
 import java.math.BigDecimal
 
 
@@ -32,12 +37,35 @@ class EnoterReportsFragment : Fragment() {
             //    view.case_item_title.text = case.title
             view.item_enoter_report_fullName.text = enoterReport.fullName
 
-            view.item_enoter_report_paymentInd.text = enoterReport.paymentInd
-            view.item_enoter_report_createdAt.text = enoterReport.createdAt.toString()
+            view.item_enoter_report_paymentInd.text = enoterReport.paymentInd?.text
+            view.item_enoter_report_createdAt.text = DateUtil.formatDate(Date(enoterReport.createdAt!!))
 
-            view.item_enoter_report_requestPackageInd.text = enoterReport.requestPackageInd
-            view.item_enoter_robotReviewInd.text = enoterReport.robotReviewInd
-            view.item_enoter_expert1ReviewInd.text = enoterReport.expert1ReviewInd
+            view.item_enoter_report_requestPackageInd.text = enoterReport.requestPackageInd?.text
+            view.item_enoter_robotReviewInd.text = enoterReport.robotReviewInd?.text
+            view.item_enoter_expert1ReviewInd.text = enoterReport.expert1ReviewInd?.text
+
+            // pay button if any
+            val payButton = view.item_enoter_report_pay_button
+            val isUnpaid = enoterReport.paymentInd == PaymentInd.UNPAID
+            payButton.visibility =  if (isUnpaid) View.VISIBLE else View.GONE
+            payButton.setOnClickListener {
+                gotoPayment(activity, enoterReport)
+            }
+
+            // view button if any
+            val viewButton = view.item_enoter_report_view_button
+            val isFinishReview = (enoterReport.requestPackageInd == RequestPackageInd.ROBOT && enoterReport.robotReviewInd == ReviewInd.FINISHED) ||
+                                 (enoterReport.requestPackageInd == RequestPackageInd.EXPERT && enoterReport.expert1ReviewInd == ReviewInd.FINISHED)
+
+            viewButton.visibility = if(isFinishReview) View.VISIBLE else View.GONE
+            viewButton.setOnClickListener {
+                val args = Bundle()
+                args.putString("enoterReport", Gson().toJson(enoterReport))
+                val dialog = EnoterReportDetailFragment()
+                dialog.arguments = args
+                dialog.show(activity.getSupportFragmentManager(), "Enoter Report Detail")
+            }
+
         }, "enoter/reports", null, object : TypeToken<List<EnoterReport>>() {}.type, false, false)
     }
 
@@ -49,16 +77,11 @@ class EnoterReportsFragment : Fragment() {
         view.enoter_reports_recycler.setLayoutManager(LinearLayoutManager(context));
 
 
-        enoterReportsRecyclerAdapter!!.itemClicked.subscribe { question ->
+        enoterReportsRecyclerAdapter!!.itemClicked.subscribe { enoterReport ->
             if (activity == null) return@subscribe
 
-            val args = Bundle()
-            args.putString("enoterReport", Gson().toJson(question))
 
-            //TODO
-//            val dialog = EnoterReportDetailFragment()
-//            dialog.arguments = args
-//            dialog.show(activity.getSupportFragmentManager(), "Enoter Report Detail")
+
         }
 
         // pull to refresh
@@ -111,9 +134,55 @@ class EnoterReportsFragment : Fragment() {
 
 }
 
-val GENDER_OPTIONS = arrayOf("男" to "MALE", "女" to "FEMALE")
-val MENSES_OPTIONS = arrayOf("未行经" to "IMMATURE", "行经" to "MENSES", "闭经" to "CEASE")
-val REQUEST_PACKAGE_OPTIONS = arrayOf("机器人判读" to "ROBOT", "专家判读" to "EXPERT")
+enum class Gender(val text: String) {
+    MALE("男"),
+    FEMALE("女")
+}
+
+enum class YesNo(val text: String) {
+    YES("是"),
+    NO("否")
+}
+
+enum class Menses(val text: String) {
+    IMMATURE("未行经"),
+    MENSES("行经"),
+    CEASE("闭经")
+}
+
+enum class ProductType(val text: String) {
+    ENOTER("e络通"),
+    MOXIBUSTION("艾灸"),
+    MISC("其它")
+}
+
+enum class TransactionType(val text: String) {
+    ENOTER("e络通"),
+    ALIPAY("支付宝")
+}
+
+enum class RequestPackageInd(val text: String) {
+    ROBOT("机器人判读"),
+    EXPERT("专家判读"),
+//    FREE("免费")
+}
+
+enum class RequestExpertInd(val text: String) {
+    USER("用户指定"),
+    SYSTEM("系统指定")
+}
+
+enum class ReviewInd(val text: String) {
+    PENDING("未开始"),
+    INPROGRESS("进行中"),
+    FINISHED("已完成")
+}
+
+enum class PaymentInd(val text: String) {
+    UNPAID("未支付"),
+    PAID("已支付"),
+    EXCEPTION("支付异常")
+}
 
 class NewEnoterReportFragment : FullScreenDialogFragment() {
     val enoterReportAdded = PublishSubject.create<EnoterReport>()
@@ -132,18 +201,25 @@ class NewEnoterReportFragment : FullScreenDialogFragment() {
 
         // ----------
 
+        // 默认套餐
+        var enoterPackage: EnoterPackage? = null
+        get("enoter/packages/default", mapOf(), { gson, json ->
+            enoterPackage = gson.fromJson(json, EnoterPackage::class.java)
+        }, {})
+
         // 性别和行经情况
-        view.new_enoter_report_gender.setLabels(ArrayList<String>(GENDER_OPTIONS.map { pair -> pair.first }))
-        view.new_enoter_report_menses.setLabels(ArrayList<String>(MENSES_OPTIONS.map { pair -> pair.first }))
+        view.new_enoter_report_gender.setLabels(ArrayList<String>(Gender.values().map { gender -> gender.text }))
+        view.new_enoter_report_menses.setLabels(ArrayList<String>(Menses.values().map { menses -> menses.text }))
 
         view.new_enoter_report_gender.setOnToggleSwitchChangeListener { position, isChecked ->
             view.new_enoter_report_menses.visibility = if (position == 1 && isChecked) View.VISIBLE else View.GONE
         }
 
         // 判读套餐和判读专家
-        view.new_enoter_report_requestPackageInd.setLabels(ArrayList<String>(REQUEST_PACKAGE_OPTIONS.map { pair -> pair.first }))
+        view.new_enoter_report_requestPackageInd.setLabels(ArrayList<String>(RequestPackageInd.values().map { pack -> pack.text }))
         view.new_enoter_report_requestPackageInd.setOnToggleSwitchChangeListener { position, isChecked ->
             view.new_enoter_report_expert1.visibility = if (position == 1 && isChecked) View.VISIBLE else View.GONE
+            view.new_enoter_report_price_desc.text = if (position == 1 && isChecked) """总计：¥ ${enoterPackage?.expertPrice}元""" else """总计：¥ ${enoterPackage?.robotPrice}元"""
         }
 
         var experts = listOf<Expert>()
@@ -152,6 +228,8 @@ class NewEnoterReportFragment : FullScreenDialogFragment() {
             val expertsAdapter = ArrayAdapter<String>(this.activity, R.layout.spinner_item, experts.map { expert -> expert.fullName })
             view.new_enoter_report_expert1.setAdapter(expertsAdapter)
         }, {})
+
+
 
 
         summitButton.setOnClickListener {
@@ -163,8 +241,8 @@ class NewEnoterReportFragment : FullScreenDialogFragment() {
             val enoterReport = EnoterReport()
             enoterReport.fullName = view.new_enoter_report_fullName.text.toString()
             enoterReport.age = view.new_enoter_report_age.text.toString().toInt()
-            enoterReport.gender = GENDER_OPTIONS[view.new_enoter_report_gender.checkedTogglePosition].second
-            enoterReport.menses = MENSES_OPTIONS[view.new_enoter_report_menses.checkedTogglePosition].second
+            enoterReport.gender = Gender.values()[view.new_enoter_report_gender.checkedTogglePosition]
+            enoterReport.menses = Menses.values()[view.new_enoter_report_menses.checkedTogglePosition]
             enoterReport.height = BigDecimal(view.new_enoter_report_height.text.toString())
             enoterReport.weight = BigDecimal(view.new_enoter_report_weight.text.toString())
             enoterReport.bpHigh = BigDecimal(view.new_enoter_report_bpHigh.text.toString())
@@ -195,7 +273,7 @@ class NewEnoterReportFragment : FullScreenDialogFragment() {
             enoterReport.lst = BigDecimal(view.new_enoter_report_lst.text.toString())
             enoterReport.rst = BigDecimal(view.new_enoter_report_rst.text.toString())
 
-            enoterReport.requestPackageInd = REQUEST_PACKAGE_OPTIONS[view.new_enoter_report_requestPackageInd.checkedTogglePosition].second
+            enoterReport.requestPackageInd = RequestPackageInd.values()[view.new_enoter_report_requestPackageInd.checkedTogglePosition]
             enoterReport.expert1 = experts.findLast { it.fullName === view.new_enoter_report_expert1.text.toString() }?.id
 
             post("enoter/reports", enoterReport, { gson, json ->
@@ -204,15 +282,8 @@ class NewEnoterReportFragment : FullScreenDialogFragment() {
                 enoterReportAdded.onNext(enoterReportCreated)
 
                 // 打开订单确认页面
-                if (enoterReportCreated.paymentInd == "UNPAID") {
-                    get("alipay/presubmit", mapOf("businessType" to "ENOTER_REPORT", "businessId" to enoterReportCreated.id.toString()), { gson, json ->
-//                        val alipayTrade = gson.fromJson(json, AlipayTrade::class.java)
-                        val args = Bundle()
-                        args.putString("alipayTrade", json)//Gson().toJson(alipayTrade))
-                        val dialog = PaymentFragment()
-                        dialog.arguments = args
-                        dialog.show(activity.getSupportFragmentManager(), "Enoter Report Payment")
-                    }, {})
+                if (enoterReportCreated.paymentInd == PaymentInd.UNPAID) {
+//                    gotoPayment(activity, enoterReportCreated)
                 }
 
                 summitButton.isEnabled = true
@@ -226,28 +297,43 @@ class NewEnoterReportFragment : FullScreenDialogFragment() {
     }
 }
 
+fun gotoPayment(activity: FragmentActivity, enoterReport: EnoterReport) {
+    if (enoterReport.paymentInd == PaymentInd.PAID) return
+
+    get("alipay/presubmit", mapOf("businessType" to "ENOTER_REPORT", "businessId" to enoterReport.id.toString()), { gson, json ->
+        //                        val alipayTrade = gson.fromJson(json, AlipayTrade::class.java)
+        val args = Bundle()
+        args.putString("alipayTrade", json)//Gson().toJson(alipayTrade))
+        val dialog = PaymentFragment()
+        dialog.arguments = args
+        dialog.show(activity.getSupportFragmentManager(), "Enoter Report Payment")
+    }, {})
+}
 
 
 
-//class EnoterReportDetailFragment : FullScreenDialogFragment() {
-//    var enoterReport: EnoterReport? = null
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        enoterReport = Gson().fromJson(arguments.getString("enoterReport"), EnoterReport::class.java)
-//    }
-//
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        val dialog = super.onCreateDialog(savedInstanceState)
-//        val view = View.inflate(context, R.layout.fragment_enoter_report_detail, null)
-//        dialog.setContentView(view)
-//
-//
-//        view.enoter_report_detail_close_button.setOnClickListener {
-//            dialog.dismiss()
-//        }
-//
-//        return dialog
-//    }
-//}
+
+class EnoterReportDetailFragment : FullScreenDialogFragment() {
+    var enoterReport: EnoterReport? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enoterReport = Gson().fromJson(arguments.getString("enoterReport"), EnoterReport::class.java)
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        val view = View.inflate(context, R.layout.fragment_enoter_report_detail, null)
+        dialog.setContentView(view)
+
+        view.enoter_report_detail_fullName.text = enoterReport?.fullName
+        RichText.fromHtml(enoterReport?.robotReport).into(view.enoter_report_detail_robotReport)
+
+        view.enoter_report_detail_close_button.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        return dialog
+    }
+}

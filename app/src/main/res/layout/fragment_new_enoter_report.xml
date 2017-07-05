@@ -555,7 +555,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end|center_vertical"
-                android:text="总计：¥ 19.9元"
                 android:textStyle="bold"
                 android:padding="16dp"
                 android:layout_marginBottom="10dp"/>

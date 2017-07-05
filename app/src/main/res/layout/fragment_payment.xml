@@ -46,15 +46,36 @@
         android:layout_height="1dp"
         android:background="@color/textSecondary"/>
 
-    <TextView
-        android:id="@+id/payment_subject"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/payment_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/payment_totalFee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/listBackground"/>
 
     <TextView
-        android:id="@+id/payment_totalFee"
-        android:gravity="end"
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="1.5"
+        android:text="@string/payment_notice"/>
 
 </LinearLayout>

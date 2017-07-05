@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">问灸</string>
     <string name="action_settings">设置</string>
+    <string name="payment_notice">支付前，请确保您安装了支付宝App，点击右上方支付将跳转到支付宝官方App进行支付。一旦支付完成,返回本App点击"完成"按钮</string>
 </resources>

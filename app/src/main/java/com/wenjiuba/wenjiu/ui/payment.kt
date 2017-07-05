@@ -33,7 +33,7 @@ class PaymentFragment : FullScreenDialogFragment() {
         dialog.setContentView(view)
 
         view.payment_subject.text = alipayTrade!!.subject
-        view.payment_totalFee.text = alipayTrade!!.totalFee.toString()
+        view.payment_totalFee.text = "¥ " + alipayTrade!!.totalFee.toString() + "元"
 
 
         view.payment_close_button.setOnClickListener {

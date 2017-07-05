@@ -11,7 +11,7 @@ import com.wenjiuba.wenjiu.getToken
 
 
 //const val API_BASE = "https://api.wenjiuba.com/"
-const val API_BASE = "http://130.217.185.73:8080/"
+const val API_BASE = "http://130.217.199.11:8080/"
 
 val StringType = object : TypeToken<String>() {}.type
 val VoidType = object : TypeToken<Void>() {}.type

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="16dp"
+        android:drawableBottom="@drawable/border">
+
+        <Button
+            android:id="@+id/enoter_report_detail_close_button"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="⨉"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"
+            android:background="@android:color/transparent"
+            android:gravity="left"/>
+
+        <TextView
+            android:layout_weight="32"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="判读报告"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/textSecondary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/enoter_report_detail_fullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="6dp"
+            android:textColor="@color/textPrimary"
+            android:gravity="center_vertical"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:background="@color/listBackground"
+        android:text="‧ ‧ ‧ 机器人判读报告 ‧ ‧ ‧"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/enoter_report_detail_robotReport"
+            android:paddingTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.5" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:background="@color/listBackground"
+        android:text="‧ ‧ ‧ 专家判读报告 ‧ ‧ ‧"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/enoter_report_detail_expert1Report"
+            android:paddingTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.5" />
+
+    </LinearLayout>
+</LinearLayout>

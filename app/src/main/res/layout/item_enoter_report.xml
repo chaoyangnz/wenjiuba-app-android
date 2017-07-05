@@ -4,72 +4,146 @@
     android:layout_marginTop="5dp"
     app:cardElevation="0dp">
 
-    <LinearLayout android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
-
-
-        <TextView
-            android:id="@+id/item_enoter_report_fullName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="17dp"/>
-
-        <TextView
-            android:id="@+id/item_enoter_report_requestPackageInd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/item_enoter_report_createdAt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/item_enoter_robotReviewInd"
-            android:textColor="@color/textSecondary"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
-        <TextView
-            android:id="@+id/item_enoter_expert1ReviewInd"
-            android:textColor="@color/textSecondary"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
         <LinearLayout
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="9"
+            android:layout_width="0dp"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/item_enoter_report_paymentInd"
-                android:textColor="@color/textSecondary"
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/item_enoter_report_fullName"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="17dp"/>
+
+                <TextView
+                    android:id="@+id/item_enoter_report_requestPackageInd"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/item_enoter_report_createdAt"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="机器人判读："/>
+
+                <TextView
+                    android:id="@+id/item_enoter_robotReviewInd"
+                    android:textColor="@color/textSecondary"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:text="专家判读："/>
+
+                <TextView
+                    android:id="@+id/item_enoter_expert1ReviewInd"
+                    android:textColor="@color/textSecondary"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/item_enoter_report_paymentInd"
+                    android:textColor="@color/textSecondary"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/question_item_summary"
-            android:lineSpacingMultiplier="1.5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/listBackground"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/item_enoter_report_pay_button"
+                android:textColor="@color/textSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:src="@drawable/alipay"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:id="@+id/item_enoter_report_view_button"
+                android:textColor="@color/textSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:src="@drawable/view_report"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
+
 </android.support.v7.widget.CardView>
