@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
             val userName = username_input.text.toString()
             val password = password_input.text.toString()
 
-            // validation
+            // validate
             if (userName.isEmpty() || password.isEmpty()) {
                 Snackbar.make(view, "用户名或密码不允许为空", Snackbar.LENGTH_LONG)
             }

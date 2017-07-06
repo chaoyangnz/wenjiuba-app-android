@@ -1,6 +1,5 @@
 package com.wenjiuba.wenjiu.ui
 
-import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -17,6 +16,7 @@ import kotlinx.android.synthetic.main.item_enoter_report.view.*
 import rx.subjects.PublishSubject
 import java.util.*
 import android.widget.ArrayAdapter
+import com.rengwuxian.materialedittext.validation.RegexpValidator
 import com.wenjiuba.wenjiu.*
 import com.wenjiuba.wenjiu.net.get
 import com.wenjiuba.wenjiu.util.DateUtil
@@ -237,6 +237,10 @@ class NewEnoterReportFragment : FullScreenDialogFragment() {
 
 
             // validation
+            if (!validate(view)) {
+                summitButton.isEnabled = true
+                return@setOnClickListener
+            }
 
             val enoterReport = EnoterReport()
             enoterReport.fullName = view.new_enoter_report_fullName.text.toString()
@@ -283,7 +287,7 @@ class NewEnoterReportFragment : FullScreenDialogFragment() {
 
                 // 打开订单确认页面
                 if (enoterReportCreated.paymentInd == PaymentInd.UNPAID) {
-//                    gotoPayment(activity, enoterReportCreated)
+                    gotoPayment(activity, enoterReportCreated)
                 }
 
                 summitButton.isEnabled = true
@@ -294,6 +298,49 @@ class NewEnoterReportFragment : FullScreenDialogFragment() {
         }
 
         return dialog
+    }
+
+    fun validate(view: View): Boolean {
+        val notEmptyValidator = RegexpValidator("不能为空", """\w{2,10}""")
+        val intNumberValidator = RegexpValidator("必须为整数", """\d{1,10}""")
+        val decimalNumberValidator = RegexpValidator("必须为整数或两位小数", """(0|[1-9]\d+)(.\d{1,2})?""")
+
+        var isValid = true
+        isValid = view.new_enoter_report_fullName.validateWith(notEmptyValidator) && isValid
+        isValid = view.new_enoter_report_age.validateWith(intNumberValidator) && isValid
+        isValid = view.new_enoter_report_height.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_weight.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_bpHigh.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_bpLow.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_llu.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rlu.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lpc.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rpc.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lht.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rht.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lsi.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rsi.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lte.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rte.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lli.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rli.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lsp.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rsp.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_llr.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rlr.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lki.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rki.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lbl.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rbl.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lgb.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rgb.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_lst.validateWith(decimalNumberValidator) && isValid
+        isValid = view.new_enoter_report_rst.validateWith(decimalNumberValidator) && isValid
+        if(RequestPackageInd.values()[view.new_enoter_report_requestPackageInd.checkedTogglePosition] == RequestPackageInd.EXPERT) {
+            isValid = view.new_enoter_report_expert1.validateWith(notEmptyValidator) && isValid
+        }
+
+        return isValid
     }
 }
 

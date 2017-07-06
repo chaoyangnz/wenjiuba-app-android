@@ -129,7 +129,7 @@ class NewCaseFragment : FullScreenDialogFragment() {
 
             val content = view.new_case_content.text.toString()
 
-            // validation
+            // validate
             if (content.isEmpty()) {
                 view.new_case_submit_button.isEnabled = true
                 Toast.makeText(context, "案例内容不能为空", Toast.LENGTH_LONG).show()
@@ -250,7 +250,7 @@ class NewCommentFragment : FullScreenDialogFragment() {
 
             val content = view.new_comment_case_content.text.toString()
 
-            // validation
+            // validate
             if (content.isEmpty()) {
                 view.new_comment_submit_button.isEnabled = true
                 Toast.makeText(context, "评论不能为空", Toast.LENGTH_LONG).show()

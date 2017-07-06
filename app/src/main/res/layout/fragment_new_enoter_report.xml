@@ -88,7 +88,9 @@
                     android:layout_height="wrap_content"
                     app:activeBgColor="@android:color/holo_green_dark"
                     app:textToggleLeft="男"
-                    app:textToggleRight="女" />
+                    app:textToggleRight="女"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"/>
 
 
                 <belka.us.androidtoggleswitch.widgets.ToggleSwitch
@@ -100,7 +102,6 @@
                     app:textToggleCenter="正常行经"
                     app:textToggleRight="已闭经"
                     app:toggleWidth="80dp"
-                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:visibility="gone"/>
 

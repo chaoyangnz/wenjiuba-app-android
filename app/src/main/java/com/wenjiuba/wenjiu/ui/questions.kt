@@ -173,7 +173,7 @@ class NewQuestionFragment : FullScreenDialogFragment() {
             val title = view.ask_question_title.text.toString()
             val content = view.ask_question_content.text.toString()
 
-            // validation
+            // validate
             if (title.isEmpty() || content.isEmpty()) {
                 view.ask_question_submit_button.isEnabled = true
                 Toast.makeText(context, "标题和描述不能为空", Toast.LENGTH_LONG).show()
@@ -221,7 +221,7 @@ class NewAnswerFragment : FullScreenDialogFragment() {
 
             val content = view.answer_question_content.text.toString()
 
-            // validation
+            // validate
             if (content.isEmpty()) {
                 view.answer_question_submit_button.isEnabled = true
                 Toast.makeText(context, "答案不能为空", Toast.LENGTH_LONG).show()
