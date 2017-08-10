@@ -55,3 +55,8 @@ If you fail to connect or the connection is unstable, please contact richd.yang@
 <img src="Screenshot5.png" width="300" />
 <img src="Screenshot6.png" width="300" />
 <img src="Screenshot7.png" width="300" />
+<img src="Screenshot8.png" width="300" />
+<img src="Screenshot9.png" width="300" />
+<img src="Screenshot10.png" width="300" />
+<img src="Screenshot11.png" width="300" />
+<img src="Screenshot12.png" width="300" />
